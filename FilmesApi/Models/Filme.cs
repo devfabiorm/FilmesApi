@@ -4,6 +4,7 @@ namespace FilmesApi.Models;
 
 public class Filme
 {
+    public int Id { get; set; }
     [Required(ErrorMessage = "O título é obrigatório")]
     [StringLength(50, ErrorMessage = "O Título pode ter no máximo 50 caracteres")]
     public string Titulo { get; set; }
