@@ -32,9 +32,9 @@ namespace FilmesApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Filme> ListarFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
+        public IEnumerable<ReadFilmeDto> ListarFilmes([FromQuery] int skip = 0, [FromQuery] int take = 50)
         {
-            return _context.Filmes.Skip(skip).Take(take);
+            return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take));
         }
 
         [HttpGet("{id}")]
@@ -43,7 +43,9 @@ namespace FilmesApi.Controllers
             var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
             if (filme == null) return NotFound();
-            return Ok(filme);
+
+            var filmeDto = _mapper.Map<ReadFilmeDto>(filme);
+            return Ok(filmeDto);
         }
 
         [HttpPut("{id}")]
@@ -75,6 +77,19 @@ namespace FilmesApi.Controllers
             }
 
             _mapper.Map(filmeParaAtualizar, filme);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletarFilme(int id)
+        {
+            var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
+
+            if(filme == null) return NotFound();
+
+            _context.Remove(filme);
             _context.SaveChanges();
 
             return NoContent();
