@@ -43,9 +43,9 @@ namespace FilmesApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Sessao> RecuperaSessoes()
+        public IEnumerable<ReadSessaoDto> RecuperaSessoes()
         {
-            return _mapper.Map<List<Sessao>>(_context.Sessoes.ToList());
+            return _mapper.Map<List<ReadSessaoDto>>(_context.Sessoes.ToList());
         }
     }
 }
