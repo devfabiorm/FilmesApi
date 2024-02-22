@@ -25,7 +25,7 @@ public class CinemasController : ControllerBase
         Cinema cinema = _mapper.Map<Cinema>(cinemaDto);
         _context.Cinemas.Add(cinema);
         _context.SaveChanges();
-        return CreatedAtAction(nameof(RecuperaCinemaPorId), new { id = cinema.Id }, cinemaDto);
+        return CreatedAtAction(nameof(RecuperaCinemaPorId), new { id = cinema.Id }, cinema);
     }
 
     [HttpGet]

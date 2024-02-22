@@ -26,7 +26,7 @@ namespace FilmesApi.Controllers
             _context.Sessoes.Add(sessao);
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(RecuperaSessaoPorId), new { sessao.Id }, createSessaoDto);
+            return CreatedAtAction(nameof(RecuperaSessaoPorId), new { sessao.Id }, sessao);
         }
 
         [HttpGet("{id}")]
