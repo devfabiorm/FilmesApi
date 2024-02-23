@@ -26,13 +26,13 @@ namespace FilmesApi.Controllers
             _context.Sessoes.Add(sessao);
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(RecuperaSessaoPorId), new { sessao.Id }, sessao);
+            return CreatedAtAction(nameof(RecuperaSessaoPorId), new { sessao.CinemaId, sessao.FilmeId }, sessao);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult RecuperaSessaoPorId(int id) 
+        [HttpGet("{cinemaId}/{filmeId}")]
+        public IActionResult RecuperaSessaoPorId(int cinemaId, int filmeId) 
         {
-            var sessao = _context.Sessoes.FirstOrDefault(s => s.Id == id);
+            var sessao = _context.Sessoes.FirstOrDefault(s => s.CinemaId == cinemaId && s.FilmeId == filmeId);
 
             if(sessao == null)
             {
